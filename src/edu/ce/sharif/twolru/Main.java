@@ -17,7 +17,7 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         long num = 0;
-        Simulator simulator = new Simulator(10L, 900000000L, 1000L);
+        Simulator simulator = new Simulator(10L, 9000000000L, 1000L);
         File traceFile = new File("/Users/mohammad/Desktop/simforkhorooji_fixed.o83020");
         Scanner scanner = new Scanner(traceFile);
         String splitPattern=Pattern.quote("#");

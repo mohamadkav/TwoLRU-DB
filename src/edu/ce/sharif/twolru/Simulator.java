@@ -58,8 +58,6 @@ public class Simulator {
         else {
             page.setLastHit(PageRepo.getNewestPageHit()+1);
             page.setHitCount(0L);
-            if((dram.get(0).getAddress()).equals(page.getAddress()))
-                throw new RuntimeException(page.getAddress()+"");
             PageRepo.add(page);
         }
     }
