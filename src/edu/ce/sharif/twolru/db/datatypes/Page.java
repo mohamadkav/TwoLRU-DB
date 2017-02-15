@@ -17,6 +17,21 @@ public class Page {
     public Page() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Page page = (Page) o;
+
+        return address.equals(page.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return address.hashCode();
+    }
+
     @Id
     @Column(name = "ADDRESS", unique = true, nullable = false)
     private Long address;

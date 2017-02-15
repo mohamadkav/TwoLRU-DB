@@ -32,6 +32,7 @@ public class Simulator {
     }
 
     private List<Page> dram = new ArrayList<Page>(){
+
         @Override
         public boolean add(Page page) {
             if(this.size()==DRAM_SIZE) {
@@ -42,8 +43,10 @@ public class Simulator {
                 dram.add(0,page);
                 return true;
             }
-            else
-                add(0,page);
+            else {
+                page.setHitCount(0L);
+                add(0, page);
+            }
             return true;
         }
     };
@@ -55,6 +58,8 @@ public class Simulator {
         else {
             page.setLastHit(PageRepo.getNewestPageHit()+1);
             page.setHitCount(0L);
+            if((dram.get(0).getAddress()).equals(page.getAddress()))
+                throw new RuntimeException(page.getAddress()+"");
             PageRepo.add(page);
         }
     }
@@ -102,6 +107,8 @@ public class Simulator {
                     }
                     newPage.setLastHit(PageRepo.getOldestPageHit()-1);
                     newPage.setHitCount(0L);
+                    if((dram.get(0).getAddress()).equals(newPage.getAddress()))
+                        throw new RuntimeException(newPage.getAddress()+"");
                     PageRepo.add(newPage);
                 }
                 else
