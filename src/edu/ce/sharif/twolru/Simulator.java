@@ -37,14 +37,12 @@ public class Simulator {
         public boolean add(Page page) {
             if(this.size()==DRAM_SIZE) {
                 migToPcm++;
-                addToPcm(dram.get(0));
+                addToPcm(dram.get(dram.size()-1));
                 dram.remove(dram.size()-1);
-                page.setHitCount(0L);
                 dram.add(0,page);
                 return true;
             }
             else {
-                page.setHitCount(0L);
                 add(0, page);
             }
             return true;
@@ -67,9 +65,10 @@ public class Simulator {
         System.out.println("migration to dram: "+migToDram);
         System.out.println("migration to pcm: "+ migToPcm);
     }
-
+    private static long iteration=0L;
     public int add(Page newPage)
     {
+        iteration++;
         int dramIndex=dram.indexOf(newPage);
         if(dramIndex!=-1) {
             Page p=new Page( dram.get(dramIndex).getAddress());
@@ -109,8 +108,10 @@ public class Simulator {
                         throw new RuntimeException(newPage.getAddress()+"");
                     PageRepo.add(newPage);
                 }
-                else
+                else {
+                    newPage.setHitCount(0L);
                     dram.add(newPage);
+                }
             }
         }
         return 0;
