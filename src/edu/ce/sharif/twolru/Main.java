@@ -17,20 +17,22 @@ public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
         long num = 0;
-        Simulator simulator = new Simulator(10L, 9000000000L, 1000L);
-        File traceFile = new File("/Users/mohammad/Desktop/simforkhorooji_fixed.o83020");
+        Simulator simulator = new Simulator(10L, 9000000000L, 100L);
+        File traceFile = new File("/Users/mohammad/Desktop/result_1000.txt");
         Scanner scanner = new Scanner(traceFile);
         String splitPattern=Pattern.quote("#");
         while(scanner.hasNext())
         {
             num++;
             String request = scanner.nextLine();
-            String[] splitted = request.split(splitPattern);
+            if(request.startsWith("Between"))
+                continue;
+            String[] splitted = request.split("\t");
 
             Page p = new Page(Long.parseLong(splitted[0]));
             simulator.add(p);
-            if(num % 1000000 == 0) {
-                double prec = (double) num / 331000000;
+            if(num % 100000 == 0) {
+                double prec = (double) num / 33000000;
                 prec = prec * 100;
                 System.out.println(prec);
             }
